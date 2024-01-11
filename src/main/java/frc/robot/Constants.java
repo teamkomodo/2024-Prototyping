@@ -13,7 +13,11 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
+
+  //Controls
+  public static final int XBOX_CONTROLLER_PORT = 0;
+  public static final double XBOX_JOYSTICK_THRESHOLD = 0.05D;
+  public static final int JOYSTICK_PORT = 0;
+  public static final int BUTTONS_PORT = 0; 
+  public static final int SELECTOR_PORT = 0; 
 }
