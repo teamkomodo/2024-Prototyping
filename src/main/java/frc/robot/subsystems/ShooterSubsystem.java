@@ -4,23 +4,26 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
 
   //Flywheel motors
-  Spark motor1;
-  Spark motor2;
+  CANSparkMax motor1;
+  CANSparkMax motor2;
 
   // Indexer motor
   Spark indexer;
 
   // Creates the motors
-  public ShooterSubsystem(int motor1ID, int motor2ID, int indexerID) {
-    motor1 = new Spark(motor1ID);
-    motor2 = new Spark(motor2ID);
-    indexer = new Spark(indexerID);
+  public ShooterSubsystem(int motor1ID, int motor2ID) {
+    motor1 = new CANSparkMax(motor1ID, MotorType.kBrushless);
+    motor2 = new CANSparkMax(motor2ID, MotorType.kBrushless);
+    //indexer = new Spark(0);
   }
 
   // Sets the flywheel motors to given speed
@@ -30,7 +33,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
   
   // Sets the indexer motor to given speed
-  public void setIndexerSpeed(double percent) {
-    indexer.set(percent);
-  }
+  // public void setIndexerSpeed(double percent) {
+  //   indexer.set(percent);
+  // }
 }

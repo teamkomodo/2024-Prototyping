@@ -20,4 +20,9 @@ public final class Constants {
   public static final int JOYSTICK_PORT = 0;
   public static final int BUTTONS_PORT = 0; 
   public static final int SELECTOR_PORT = 0; 
+
+  //Ports
+
+  public static final int FLYWHEEL_1_PORT = 10;
+  public static final int FLYWHEEL_2_PORT = 10;
 }

@@ -18,7 +18,8 @@ import static frc.robot.Constants.*;
 public class RobotContainer {
 
   // Subsystem definitions should be public for auto reasons
-  public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(0, 1, 2);
+  public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(Constants.FLYWHEEL_1_PORT, Constants.FLYWHEEL_2_PORT);
+  public double flywheelSpeed = 0.5;
 
   private final CommandXboxController driverXBoxController = new CommandXboxController(XBOX_CONTROLLER_PORT);
 
@@ -30,15 +31,20 @@ public class RobotContainer {
   private void configureBindings() {
     
     // Defines buttons on the xbox controller
-    Trigger leftBumper = driverXBoxController.leftBumper();
+    Trigger xButton = driverXBoxController.x();
+    Trigger yButton = driverXBoxController.y();
 
     // Left Bumper starts outtake (sets flywheels speed) 
-    leftBumper.whileTrue(Commands.runEnd(() -> {
-        shooterSubsystem.setFlywheelsSpeed(10);
-    }, () -> {
-        shooterSubsystem.setFlywheelsSpeed(0);
-    }, shooterSubsystem));
+    // leftBumper.onTrue(Commands.runEnd(() -> {
+    //     shooterSubsystem.setFlywheelsSpeed(10);
+    // }, () -> {
+    //     shooterSubsystem.setFlywheelsSpeed(0);
+    // }, shooterSubsystem));
+    xButton.onTrue(Commands.runOnce(() -> {shooterSubsystem.setFlywheelsSpeed(flywheelSpeed);}));
+    xButton.onFalse(Commands.runOnce(() -> {shooterSubsystem.setFlywheelsSpeed(0);}));
 
+    yButton.onTrue(Commands.runOnce(() -> {flywheelSpeed += 0.05;}));
+    yButton.onFalse(Commands.runOnce(() -> {flywheelSpeed -= 0.05;}));
   }
 
   public Command getAutonomousCommand() {
