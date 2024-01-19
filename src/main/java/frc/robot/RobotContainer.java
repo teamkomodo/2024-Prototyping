@@ -16,9 +16,10 @@ import static frc.robot.Constants.*;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-
+   double motorSpeed = 1;
+  
   // Subsystem definitions should be public for auto reasons
-  public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(0, 1, 2);
+  public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
   private final CommandXboxController driverXBoxController = new CommandXboxController(XBOX_CONTROLLER_PORT);
 
@@ -29,15 +30,11 @@ public class RobotContainer {
 
   private void configureBindings() {
     
-    // Defines buttons on the xbox controller
-    Trigger leftBumper = driverXBoxController.leftBumper();
-
-    // Left Bumper starts outtake (sets flywheels speed) 
-    leftBumper.whileTrue(Commands.runEnd(() -> {
-        shooterSubsystem.setFlywheelsSpeed(10);
-    }, () -> {
-        shooterSubsystem.setFlywheelsSpeed(0);
-    }, shooterSubsystem));
+    Trigger xButton = driverXBoxController.x();
+    
+    //x now activates flywheel motors
+    xButton.onTrue(Commands.runOnce(() -> {shooterSubsystem.setFlywheelsSpeed(motorSpeed);}));
+    xButton.onFalse(Commands.runOnce(() -> {shooterSubsystem.setFlywheelsSpeed(0);}));
 
   }
 
